@@ -27,21 +27,11 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Validar formato do email
-    const emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+@itaguai\.rj\.gov\.br$/
-    if (!emailRegex.test(email)) {
-      alert("Email deve estar no formato: nome.sobrenome@itaguai.rj.gov.br")
-      setIsLoading(false)
-      return
-    }
-
-    // Simular autenticação
+    // Simular entrada no sistema (sem autenticação)
     setTimeout(() => {
-      localStorage.setItem("isAuthenticated", "true")
-      localStorage.setItem("userEmail", email)
-      router.push("/dashboard")
+      router.push("/cadastro-principal")
       setIsLoading(false)
-    }, 1000)
+    }, 500)
   }
 
   return (
@@ -78,7 +68,6 @@ export default function LoginPage() {
                   placeholder="nome.sobrenome@itaguai.rj.gov.br"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
@@ -94,7 +83,6 @@ export default function LoginPage() {
                     placeholder="Digite sua senha"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                     className="pr-20 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">

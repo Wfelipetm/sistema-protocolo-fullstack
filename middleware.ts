@@ -4,9 +4,9 @@ import type { NextRequest } from "next/server"
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Redirecionar root para login
+  // Redirecionar root para cadastro principal
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/login", request.url))
+    return NextResponse.redirect(new URL("/dashboard/cadastro-principal", request.url))
   }
 
   return NextResponse.next()

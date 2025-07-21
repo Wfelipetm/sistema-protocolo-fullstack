@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,21 +9,9 @@ import { FileText, Users, Clock, TrendingUp, Plus, Search } from "lucide-react"
 
 export default function DashboardPage() {
   const router = useRouter()
-  const [userEmail, setUserEmail] = useState("")
+  const [userEmail, setUserEmail] = useState("usuario.sistema")
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated")
-    const email = localStorage.getItem("userEmail")
-
-    if (!isAuthenticated) {
-      router.push("/login")
-      return
-    }
-
-    if (email) {
-      setUserEmail(email)
-    }
-  }, [router])
+  // Removida a verificação de autenticação
 
   const stats = [
     {

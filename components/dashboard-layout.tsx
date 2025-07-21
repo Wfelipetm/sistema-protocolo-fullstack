@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -69,28 +69,12 @@ const menuItems = [
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const [userEmail, setUserEmail] = useState("")
+  const [userEmail, setUserEmail] = useState("usuario.sistema@itaguai.rj.gov.br")
 
-  useEffect(() => {
-    // Verificar autenticação apenas no cliente
-    if (typeof window !== "undefined") {
-      const isAuthenticated = localStorage.getItem("isAuthenticated")
-      const email = localStorage.getItem("userEmail")
-
-      if (!isAuthenticated) {
-        router.push("/login")
-        return
-      }
-
-      if (email) {
-        setUserEmail(email)
-      }
-    }
-  }, [router])
+  // Removida a verificação de autenticação
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated")
-    localStorage.removeItem("userEmail")
+    // Removida a limpeza do localStorage
     router.push("/login")
   }
 
