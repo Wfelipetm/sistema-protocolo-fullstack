@@ -2,13 +2,13 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { HeaderWrapper } from "@/components/header-wrapper"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Sistema de Gestão - Prefeitura de Itaguaí",
-  description: "Sistema de controle de documentos e processos administrativos",
+  title: "Sistema Protocolo - Prefeitura de Itaguaí",
+  description: "Sistema para abertura de protocolo - Secretaria de Administração",
     generator: 'v0.dev'
 }
 
@@ -20,8 +20,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <HeaderWrapper />
-        <main className="min-h-screen bg-gray-50">{children}</main>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
