@@ -1,6 +1,5 @@
 "use client"
 
-import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
@@ -37,7 +36,7 @@ export default function ApensosPage() {
   ]
 
   return (
-    <DashboardLayout>
+
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Apensos</h1>
@@ -131,6 +130,6 @@ export default function ApensosPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+
   )
 }

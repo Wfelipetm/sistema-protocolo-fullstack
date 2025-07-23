@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { useEffect, useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/sidebar"
 import { FileText, Plus, FileSearch, CreditCard, Search, FolderOpen, LogOut, User, Settings } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@/contexts/AuthContext"
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -67,31 +68,12 @@ const menuItems = [
 ]
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const router = useRouter()
   const pathname = usePathname()
-  const [userEmail, setUserEmail] = useState("")
-
-  useEffect(() => {
-    // Verificar autenticação apenas no cliente
-    if (typeof window !== "undefined") {
-      const isAuthenticated = localStorage.getItem("isAuthenticated")
-      const email = localStorage.getItem("userEmail")
-
-      if (!isAuthenticated) {
-        router.push("/login")
-        return
-      }
-
-      if (email) {
-        setUserEmail(email)
-      }
-    }
-  }, [router])
+  const { user, logout } = useAuth();
+  const userEmail = user?.email || "usuario@sistema.com";
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated")
-    localStorage.removeItem("userEmail")
-    router.push("/login")
+    logout();
   }
 
   const getUserInitials = (email: string) => {

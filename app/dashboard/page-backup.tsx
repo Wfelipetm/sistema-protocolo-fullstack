@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,17 +8,17 @@ import { Button } from "@/components/ui/button"
 import { FileText, Users, Clock, TrendingUp, Plus, Search, Loader2 } from "lucide-react"
 
 export default function DashboardPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, isLoading } = useAuth()
   const router = useRouter()
 
   // Redirecionar se não estiver autenticado
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push("/login")
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, isLoading, router])
 
-  // Estatísticas básicas sem dependência da API
+  // Estatísticas básicas
   const stats = [
     {
       title: "Protocolos",
@@ -50,12 +50,16 @@ export default function DashboardPage() {
     },
   ]
 
-  if (!isAuthenticated) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     )
+  }
+
+  if (!isAuthenticated) {
+    return null // O useEffect irá redirecionar
   }
 
   return (

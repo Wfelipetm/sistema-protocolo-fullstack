@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -44,11 +43,10 @@ export default function ControleDocumentoPage() {
   ]
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Controle de Documentos</h1>
-          <p className="text-gray-600">Gerencie e acompanhe documentos e processos</p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Controle de Documentos</h1>
+        <p className="text-gray-600">Gerencie e acompanhe documentos e processos</p>
         </div>
 
         <Tabs defaultValue="pagamentos" className="space-y-6">
@@ -202,6 +200,5 @@ export default function ControleDocumentoPage() {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
   )
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
@@ -36,7 +35,7 @@ export default function DocsRecebidosPage() {
   ]
 
   return (
-    <DashboardLayout>
+
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Documentos Recebidos</h1>
@@ -106,6 +105,6 @@ export default function DocsRecebidosPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+
   )
 }
