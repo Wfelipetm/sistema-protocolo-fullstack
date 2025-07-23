@@ -5,34 +5,29 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Eye, Download } from "lucide-react"
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
 
 export default function DocsRecebidosPage() {
-  const documentos = [
-    {
-      id: "2024001",
-      remetente: "SMCTIC",
-      assunto: "Solicitação de equipamentos",
-      dataRecebimento: "15/01/2024",
-      status: "Novo",
-      prioridade: "Alta",
-    },
-    {
-      id: "2024002",
-      remetente: "SMAD",
-      assunto: "Relatório mensal",
-      dataRecebimento: "14/01/2024",
-      status: "Lido",
-      prioridade: "Média",
-    },
-    {
-      id: "2024003",
-      remetente: "SMED",
-      assunto: "Projeto educacional",
-      dataRecebimento: "13/01/2024",
-      status: "Respondido",
-      prioridade: "Baixa",
-    },
-  ]
+  const [documentos, setDocumentos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchDocs() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await api.get("/documentos-controle");
+        setDocumentos(res.data);
+      } catch (err: any) {
+        setError("Erro ao buscar documentos recebidos");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchDocs();
+  }, []);
 
   return (
 
@@ -47,6 +42,8 @@ export default function DocsRecebidosPage() {
             <CardTitle className="text-lg">Lista de Documentos Recebidos</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
+            {loading && <div className="p-6 text-blue-600">Carregando documentos...</div>}
+            {error && <div className="p-6 text-red-600">{error}</div>}
             <Table>
               <TableHeader>
                 <TableRow className="bg-blue-500 hover:bg-blue-500">
@@ -60,19 +57,23 @@ export default function DocsRecebidosPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {documentos.map((doc) => (
+                {documentos.map((doc: any) => (
                   <TableRow key={doc.id} className="hover:bg-gray-50">
-                    <TableCell className="font-medium">{doc.id}</TableCell>
-                    <TableCell>{doc.remetente}</TableCell>
-                    <TableCell>{doc.assunto}</TableCell>
-                    <TableCell>{doc.dataRecebimento}</TableCell>
+                    <TableCell className="font-medium">{doc.id ?? "-"}</TableCell>
+                    <TableCell>{doc.remetente ?? doc.enviado_por ?? "-"}</TableCell>
+                    <TableCell>{doc.assunto ?? doc.docs_guia ?? "-"}</TableCell>
+                    <TableCell>{doc.dataRecebimento ?? doc.data_envio ?? "-"}</TableCell>
                     <TableCell>
                       <Badge
                         variant={
-                          doc.status === "Novo" ? "destructive" : doc.status === "Lido" ? "default" : "secondary"
+                          doc.status === "Novo"
+                            ? "destructive"
+                            : doc.status === "Lido"
+                              ? "default"
+                              : "secondary"
                         }
                       >
-                        {doc.status}
+                        {doc.status ?? "-"}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -85,7 +86,7 @@ export default function DocsRecebidosPage() {
                               : "secondary"
                         }
                       >
-                        {doc.prioridade}
+                        {doc.prioridade ?? "-"}
                       </Badge>
                     </TableCell>
                     <TableCell>
