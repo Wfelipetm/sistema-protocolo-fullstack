@@ -46,20 +46,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 
 	useEffect(() => {
-		const storedToken = localStorage.getItem("token");
-		const storedUser = localStorage.getItem("user");
+		const initAuth = () => {
+			try {
+				const storedToken = localStorage.getItem("token");
+				const storedUser = localStorage.getItem("user");
 
-		if (storedToken && storedUser) {
-			const parsedUser = JSON.parse(storedUser);
-			setToken(storedToken);
-			setUser(parsedUser);
-			api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
-		} else {
-			setToken(null);
-			setUser(null);
-		}
+				if (storedToken && storedUser) {
+					const parsedUser = JSON.parse(storedUser);
+					setToken(storedToken);
+					setUser(parsedUser);
+					api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
+				} else {
+					setToken(null);
+					setUser(null);
+					delete api.defaults.headers.common.Authorization;
+				}
+			} catch (error) {
+				console.error("Erro ao inicializar autenticação:", error);
+				setToken(null);
+				setUser(null);
+				localStorage.removeItem("token");
+				localStorage.removeItem("user");
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-		setIsLoading(false);
+		initAuth();
 	}, []);
 
 	const login = async (email: string, password: string) => {
@@ -103,13 +116,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const logout = () => {
 		setToken(null);
 		setUser(null);
+		setError(null);
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		api.defaults.headers.common.Authorization = undefined;
+		delete api.defaults.headers.common.Authorization;
 		// Remove cookies de autenticação
 		document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 		document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-		window.location.href = "/login";
+		router.push("/login");
 	};
 
 	return (

@@ -12,21 +12,32 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated, user } = useAuth()
+  const { isAuthenticated, user, isLoading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!isAuthenticated && !user) {
-      router.push("/")
+    if (!isLoading && !isAuthenticated && !user) {
+      router.push("/login")
     }
-  }, [isAuthenticated, user, router])
+  }, [isAuthenticated, user, router, isLoading])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p>Verificando autenticação...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!isAuthenticated && !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p>Verificando autenticação...</p>
+          <p>Redirecionando para login...</p>
         </div>
       </div>
     )
