@@ -45,79 +45,122 @@ export default function LoginPage() {
     )
   }
 
+  // Novo design
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center">
-          <div className="mb-4 flex flex-col items-center">
-            <span className="bg-blue-100 rounded-full p-3 mb-2">
-              <FileText className="h-8 w-8 text-blue-700" />
-            </span>
-            <h1 className="text-2xl font-bold text-blue-700 mb-1">Sistema de Protocolo</h1>
-            <p className="text-sm text-gray-500">Controle e gestão de documentos</p>
-          </div>
-          <form onSubmit={handleSubmit} className="w-full mt-2 space-y-4">
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                placeholder="seu@email.com"
-                required
-              />
-            </div>
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">Senha</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
-                  placeholder="Digite sua senha"
-                  required
-                />
-                <button
-                  type="button"
-                  className="absolute right-2 top-2 text-gray-400 hover:text-blue-700"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                </button>
+    <div className="min-h-screen bg-gradient-to-br from-itaguai-50 via-white to-itaguai-100 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-itaguai-100 rounded-full opacity-50 blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-itaguai-200 rounded-full opacity-30 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-itaguai-100 to-transparent rounded-full opacity-20 blur-3xl"></div>
+      </div>
+      <div className="w-full max-w-md space-y-8">
+        {/* Card de Login */}
+        <div className="w-full max-w-md mx-auto relative z-10 animate-slide-up">
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-itaguai-lg border border-white/20 p-8 space-y-8">
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-itaguai rounded-2xl shadow-itaguai relative">
+                {/* Substitua House, CircleDollarSign, Shield por os ícones corretos do seu projeto */}
+                <FileText className="w-14 h-14 text-white drop-shadow-sm" />
+                <div className="absolute top-14 right-3 w-4 h-4 bg-success-500 rounded-full flex items-center justify-center">
+                  {/* Ícone secundário */}
+                  <Eye className="w-4 h-4 text-white" />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h1 className="text-3xl font-bold text-itaguai-900 tracking-tight">Sistema de Protocolo</h1>
+                <div className="space-y-1">
+                  <p className="text-itaguai-700 font-medium">Prefeitura de Itaguaí</p>
+                  <p className="text-sm text-itaguai-600">Acesse sua conta institucional</p>
+                </div>
               </div>
             </div>
-            {authError && (
-              <Alert variant="destructive">
-                <AlertDescription>{authError}</AlertDescription>
-              </Alert>
-            )}
-            <Button
-              type="submit"
-              className="w-full bg-blue-700 text-white py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Entrando...
-                </span>
-              ) : (
-                "Entrar"
-              )}
-            </Button>
-          </form>
-          <div className="mt-6 text-sm text-gray-600 text-center">
-            Ainda não tem conta?
-            <a href="/cadastro" className="ml-1 text-blue-700 font-semibold hover:underline">
-              Cadastrar-se
-            </a>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {authError && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{authError}</AlertDescription>
+                  </Alert>
+                )}
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="text-sm font-semibold text-itaguai-900">
+                    E-mail institucional
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <FileText className="h-5 w-5 text-itaguai-400" />
+                    </div>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="seu.nome@itaguai.rj.gov.br"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-12 h-14 text-base border-itaguai-200 rounded-xl focus:ring-2 focus:ring-itaguai-500 focus:border-itaguai-500 bg-white/50 backdrop-blur-sm transition-all duration-200"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="relative">
+                    <Label htmlFor="password" className="text-sm font-semibold text-itaguai-900">
+                      Senha
+                    </Label>
+                    <div className="absolute mt-4 left-0 pl-4 flex items-center pointer-events-none">
+                      <Eye className="h-5 w-5 text-itaguai-400" />
+                    </div>
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      value={senha}
+                      onChange={(e) => setSenha(e.target.value)}
+                      className="pl-12 pr-14 h-14 text-base border-itaguai-200 rounded-xl focus:ring-2 focus:ring-itaguai-500 focus:border-itaguai-500 bg-white/50 backdrop-blur-sm transition-all duration-200"
+                      placeholder="Digite sua senha"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-itaguai-400 hover:text-itaguai-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-itaguai-500 rounded-lg"
+                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 mt-7" />
+                      ) : (
+                        <Eye className="h-5 w-5 mt-7" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                <Button
+                  type="submit"
+                  disabled={isLoading || !email || !senha}
+                  className="w-full h-14 bg-gradient-itaguai hover:shadow-itaguai text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center space-x-3">
+                      <Loader2 className="animate-spin w-5 h-5" />
+                      <span>Entrando...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-3">
+                      <Eye className="w-5 h-5" />
+                      <span>Entrar no Sistema</span>
+                    </div>
+                  )}
+                </Button>
+              </form>
+              <div className="text-center space-y-4 pt-6 border-t border-itaguai-100 mt-8">
+                <div className="flex items-center justify-center space-x-2 text-sm text-itaguai-600">
+                  <Eye className="w-4 h-4 text-success-600" />
+                  <span className="font-medium">Conexão segura e criptografada</span>
+                </div>
+                <div className="text-xs text-itaguai-500 space-y-1">
+                  <p>© 2025 Prefeitura Municipal de Itaguaí</p>
+                  <p>Desenvolvido pela Secretaria Municipal de Ciência, Tecnologia e Inovação</p>
+                </div>
+              </div>
+            </CardContent>
           </div>
-        </div>
-        <div className="text-center text-xs text-gray-400 mt-6">
-          Sistema desenvolvido para controle de protocolo
         </div>
       </div>
     </div>
