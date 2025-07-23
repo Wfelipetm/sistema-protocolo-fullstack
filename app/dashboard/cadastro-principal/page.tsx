@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { api } from "@/lib/api"
 
 export default function CadastroPrincipalPage() {
   const [formData, setFormData] = useState({
@@ -33,6 +34,35 @@ export default function CadastroPrincipalPage() {
     localAbertura: "",
   })
 
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [unidades, setUnidades] = useState<any[]>([])
+  const [requerentes, setRequerentes] = useState<any[]>([])
+  const [secretarias, setSecretarias] = useState<any[]>([])
+  const [setores, setSetores] = useState<any[]>([])
+  const [tiposDocumento, setTiposDocumento] = useState<string[]>(["Ofício", "Memorando", "Requerimento"])
+
+  useEffect(() => {
+    async function fetchOptions() {
+      try {
+        const [unRes, reqRes, secRes, setRes] = await Promise.all([
+          api.get("/unidade"),
+          api.get("/requerentes"),
+          api.get("/secretarias"),
+          api.get("/setores"),
+        ])
+        setUnidades(unRes.data)
+        setRequerentes(reqRes.data)
+        setSecretarias(secRes.data)
+        setSetores(setRes.data)
+      } catch (err) {
+        // Silenciar erro de opções
+      }
+    }
+    fetchOptions()
+  }, [])
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
@@ -43,6 +73,65 @@ export default function CadastroPrincipalPage() {
 
   const handleGerarProcessoSerie = () => {
     console.log("Gerando processo em série...")
+  }
+
+  const handleCadastrarProcesso = async () => {
+    setLoading(true)
+    setError(null)
+    setSuccess(null)
+    try {
+      const payload = {
+        numero_documento: formData.numeroDocumento,
+        tipo_documento: formData.tipoDocumento,
+        ano: parseInt(formData.ano),
+        data_abertura: formData.dataAbertura,
+        apenso_processo: formData.apensoProcesso,
+        criado_por: formData.criadoPor,
+        codigo_assunto: formData.codigoAssunto,
+        assunto: formData.assunto,
+        doc_necessario: formData.docNecessario,
+        origem: formData.origem,
+        valor_rs: parseFloat(formData.valorRS),
+        codigo_requerente: formData.codigoRequerente,
+        sumula_documento: formData.sumulaDocumento,
+        unidade_id: formData.unidade,
+        requerente_id: formData.requerenteCPFCNPJ,
+        secretaria_id: formData.nomeSecretaria,
+        setor_destino_id: formData.setorDestino,
+        setor_requerente_id: formData.setorRequerente,
+        local_abertura: formData.localAbertura,
+      }
+      await api.post("/processos", payload)
+      setSuccess("Processo cadastrado com sucesso!")
+      setFormData({
+        unidade: "",
+        tipoDocumento: "",
+        numeroDocumento: "",
+        ano: "",
+        dataAbertura: "",
+        apensoProcesso: "",
+        criadoPor: "",
+        codigoAssunto: "",
+        assunto: "",
+        docNecessario: "",
+        origem: "",
+        valorRS: "",
+        requerenteCPFCNPJ: "",
+        codigoRequerente: "",
+        codigoNomeRequerente: "",
+        sumulaDocumento: "",
+        requerenteCPFCNPJInfo: "",
+        nomeSecretaria: "",
+        setorDestino: "",
+        setorRequerente: "",
+        ultimaTramitacao: "",
+        localAbertura: "",
+      })
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Erro ao cadastrar processo")
+    } finally {
+      setLoading(false)
+    }
   }
 
   const actionButtons = [
@@ -71,22 +160,34 @@ export default function CadastroPrincipalPage() {
               {/* Primeira linha */}
               <div className="space-y-2">
                 <Label htmlFor="unidade">Unidade</Label>
-                <Input
+                <select
                   id="unidade"
                   value={formData.unidade}
-                  onChange={(e) => handleInputChange("unidade", e.target.value)}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
-                />
+                  onChange={e => handleInputChange("unidade", e.target.value)}
+                  className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="">Selecione...</option>
+                  {unidades.map(u => (
+                    <option key={u.id} value={u.id}>{u.nome}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="tipoDocumento">Tipo de Documento</Label>
-                <Input
+                <select
                   id="tipoDocumento"
                   value={formData.tipoDocumento}
-                  onChange={(e) => handleInputChange("tipoDocumento", e.target.value)}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
-                />
+                  onChange={e => handleInputChange("tipoDocumento", e.target.value)}
+                  className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="">Selecione...</option>
+                  {tiposDocumento.map((tipo, idx) => (
+                    <option key={idx} value={tipo}>{tipo}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="space-y-2">
@@ -94,7 +195,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="numeroDocumento"
                   value={formData.numeroDocumento}
-                  onChange={(e) => handleInputChange("numeroDocumento", e.target.value)}
+                  onChange={e => handleInputChange("numeroDocumento", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -104,7 +205,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="ano"
                   value={formData.ano}
-                  onChange={(e) => handleInputChange("ano", e.target.value)}
+                  onChange={e => handleInputChange("ano", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -116,7 +217,7 @@ export default function CadastroPrincipalPage() {
                   id="dataAbertura"
                   type="date"
                   value={formData.dataAbertura}
-                  onChange={(e) => handleInputChange("dataAbertura", e.target.value)}
+                  onChange={e => handleInputChange("dataAbertura", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -126,7 +227,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="apensoProcesso"
                   value={formData.apensoProcesso}
-                  onChange={(e) => handleInputChange("apensoProcesso", e.target.value)}
+                  onChange={e => handleInputChange("apensoProcesso", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -136,7 +237,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="criadoPor"
                   value={formData.criadoPor}
-                  onChange={(e) => handleInputChange("criadoPor", e.target.value)}
+                  onChange={e => handleInputChange("criadoPor", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -146,7 +247,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="codigoAssunto"
                   value={formData.codigoAssunto}
-                  onChange={(e) => handleInputChange("codigoAssunto", e.target.value)}
+                  onChange={e => handleInputChange("codigoAssunto", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -157,7 +258,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="assunto"
                   value={formData.assunto}
-                  onChange={(e) => handleInputChange("assunto", e.target.value)}
+                  onChange={e => handleInputChange("assunto", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -167,7 +268,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="docNecessario"
                   value={formData.docNecessario}
-                  onChange={(e) => handleInputChange("docNecessario", e.target.value)}
+                  onChange={e => handleInputChange("docNecessario", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -177,7 +278,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="origem"
                   value={formData.origem}
-                  onChange={(e) => handleInputChange("origem", e.target.value)}
+                  onChange={e => handleInputChange("origem", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -187,7 +288,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="valorRS"
                   value={formData.valorRS}
-                  onChange={(e) => handleInputChange("valorRS", e.target.value)}
+                  onChange={e => handleInputChange("valorRS", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -195,12 +296,18 @@ export default function CadastroPrincipalPage() {
               {/* Quarta linha */}
               <div className="space-y-2">
                 <Label htmlFor="requerenteCPFCNPJ">Requerente por CPF|CNPJ</Label>
-                <Input
+                <select
                   id="requerenteCPFCNPJ"
                   value={formData.requerenteCPFCNPJ}
-                  onChange={(e) => handleInputChange("requerenteCPFCNPJ", e.target.value)}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
-                />
+                  onChange={e => handleInputChange("requerenteCPFCNPJ", e.target.value)}
+                  className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="">Selecione...</option>
+                  {requerentes.map(r => (
+                    <option key={r.id} value={r.id}>{r.nome}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="space-y-2">
@@ -208,7 +315,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="codigoRequerente"
                   value={formData.codigoRequerente}
-                  onChange={(e) => handleInputChange("codigoRequerente", e.target.value)}
+                  onChange={e => handleInputChange("codigoRequerente", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -218,7 +325,7 @@ export default function CadastroPrincipalPage() {
                 <Input
                   id="codigoNomeRequerente"
                   value={formData.codigoNomeRequerente}
-                  onChange={(e) => handleInputChange("codigoNomeRequerente", e.target.value)}
+                  onChange={e => handleInputChange("codigoNomeRequerente", e.target.value)}
                   className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -228,7 +335,7 @@ export default function CadastroPrincipalPage() {
                 <Textarea
                   id="sumulaDocumento"
                   value={formData.sumulaDocumento}
-                  onChange={(e) => handleInputChange("sumulaDocumento", e.target.value)}
+                  onChange={e => handleInputChange("sumulaDocumento", e.target.value)}
                   className="min-h-[120px] transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -306,6 +413,13 @@ export default function CadastroPrincipalPage() {
             {/* Botões de ação */}
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
+                onClick={handleCadastrarProcesso}
+                className="bg-green-600 hover:bg-green-700 transition-all duration-200 transform hover:scale-[1.02]"
+                disabled={loading}
+              >
+                {loading ? "Cadastrando..." : "Cadastrar Processo"}
+              </Button>
+              <Button
                 onClick={handleGerarPrimeiraTramitacao}
                 className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 transform hover:scale-[1.02]"
               >
@@ -318,6 +432,8 @@ export default function CadastroPrincipalPage() {
                 Gerar Processo em Série
               </Button>
             </div>
+            {success && <p className="mt-4 text-green-600">{success}</p>}
+            {error && <p className="mt-4 text-red-600">{error}</p>}
 
             {/* Botões de etiquetas e comprovantes */}
             <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
