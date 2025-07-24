@@ -13,20 +13,10 @@ import {
   Send,
   History,
   LogOut,
-  User,
-  BarChart3,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import ProtectedRoute from "./ProtectedRoute"
 
 interface LayoutProps {
@@ -60,7 +50,6 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   const menuItems = [
-    { icon: BarChart3, label: "Dashboard", href: "/dashboard" },
     { icon: FileCheck, label: "Controle Documento", href: "/controle-documento" },
     { icon: Users, label: "Cadastro Principal", href: "/cadastro-principal" },
     { icon: FileText, label: "Docs. Recebidos", href: "/docs-recebidos" },
@@ -77,59 +66,47 @@ export default function Layout({ children }: LayoutProps) {
         {/* Header - Full Width */}
         <header className="bg-sistema-background-primary border-b border-sistema-border-light px-6 py-4 w-full">
           <div className="flex items-center justify-between">
-            {/* Logo e título à esquerda */}
-            <div className="flex items-center space-x-4 flex-1">
+            <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-sistema-primary rounded-lg flex items-center justify-center">
                   <FileText className="w-6 h-6 text-sistema-text-white" />
                 </div>
                 <div>
                   <h1 className="text-sistema-primary font-bold text-lg">Sistema Protocolo</h1>
-                  <p className="text-xs text-sistema-text-secondary">Sistema para abertura de protocolo</p>
+                  <p className="text-sm text-sistema-text-secondary">Sistema para abertura de protocolo</p>
                 </div>
               </div>
             </div>
 
-            {/* Logo centralizada */}
-            <div className="flex-1 flex justify-center">
+            <div className="flex items-center space-x-6">
               <img
-                src="/prefeitura-logo.png"
-                alt="Logo Sistema Protocolo"
-                className="h-16 w-auto object-contain"
+                src="/placeholder.svg?height=50&width=250&text=Logo+Prefeitura+Itaguaí"
+                alt="Logo Prefeitura de Itaguaí"
+                className="h-12"
               />
-            </div>
-
-            {/* Área do usuário à direita */}
-            <div className="flex items-center space-x-6 flex-1 justify-end">
-             
-            
+              <div className="text-right">
+                <p className="text-sm font-semibold text-sistema-primary leading-tight">Prefeitura de</p>
+                <p className="text-sm font-semibold text-sistema-primary leading-tight">Secretaria de</p>
+                <p className="text-sm font-semibold text-sistema-primary leading-tight">Ciência, Tecnologia</p>
+                <p className="text-sm font-semibold text-sistema-primary leading-tight">Inovação e Comunicação</p>
+              </div>
               <div className="flex items-center space-x-3">
-                
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-12 h-12 bg-sistema-primary rounded-full flex items-center justify-center hover:bg-sistema-primary/90 p-0"
-                    >
-                      <span className="text-sistema-text-white font-bold text-lg">
-                        {user?.nome?.charAt(0) || "U"}
-                      </span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel className="font-normal">
-                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{user?.nome}</p>
-                        <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
-                      </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout} className="text-red-600 focus:text-red-600">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Sair</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-sistema-primary">{user?.name}</p>
+                  <p className="text-xs text-sistema-text-secondary">{user?.email}</p>
+                </div>
+                <div className="w-12 h-12 bg-sistema-primary rounded-full flex items-center justify-center">
+                  <span className="text-sistema-text-white font-bold text-lg">{user?.name?.charAt(0) || "U"}</span>
+                </div>
+                <Button
+                  onClick={logout}
+                  variant="ghost"
+                  size="sm"
+                  className="text-sistema-text-secondary hover:text-sistema-primary"
+                  title="Sair do sistema"
+                >
+                  <LogOut className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           </div>
