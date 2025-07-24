@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const api = axios.create({
     baseURL: API_URL,
-    timeout: 5000, // 5 segundos timeout para testar conexão rapidamente
+    timeout: 10000,
 })
 
 // Interceptor para adicionar o token em todas as requisições
