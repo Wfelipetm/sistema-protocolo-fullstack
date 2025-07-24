@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Sistema de Protocolo - Prefeitura de Itaguaí",
   description: "Sistema para abertura de protocolo da Prefeitura Municipal de Itaguaí",
-    generator: 'v0.dev'
+    
 }
 
 export default function RootLayout({
@@ -27,3 +27,4 @@ export default function RootLayout({
     </html>
   )
 }
+

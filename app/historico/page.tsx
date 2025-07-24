@@ -5,7 +5,7 @@ export default function Historico() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-sistema-gradient rounded-xl p-6 text-sistema-text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -20,19 +20,19 @@ export default function Historico() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light p-8 shadow-sm">
-          <h2 className="text-3xl font-bold text-sistema-text-primary mb-8 border-b-4 border-sistema-text-primary pb-2 inline-block">
+        <div className="bg-white rounded-xl border border-blue-300 p-8 shadow-sm">
+          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
             Controle de Documentos
           </h2>
 
           {/* Lista Apensos */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-sistema-text-primary">Lista Apensos</h3>
+              <h3 className="text-xl font-bold text-black">Lista Apensos</h3>
             </div>
 
-            <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light overflow-hidden shadow-sm">
-              <div className="bg-sistema-gradient text-sistema-text-white">
+            <div className="bg-white rounded-xl border border-blue-300 overflow-hidden shadow-sm">
+              <div className="bg-blue-700 text-white">
                 <div className="grid grid-cols-5 gap-4 p-4 text-sm font-semibold">
                   <div>Nº Documento</div>
                   <div>Tipo de Documento</div>
@@ -41,8 +41,8 @@ export default function Historico() {
                   <div>Termo</div>
                 </div>
               </div>
-              <div className="p-12 text-center text-sistema-text-secondary">
-                <div className="w-16 h-16 bg-sistema-background-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="p-12 text-center text-gray-600">
+                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -60,11 +60,11 @@ export default function Historico() {
           {/* Lista Histórico */}
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-sistema-text-primary">Lista Histórico</h3>
+              <h3 className="text-xl font-bold text-black">Lista Histórico</h3>
             </div>
 
-            <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light overflow-hidden shadow-sm">
-              <div className="bg-sistema-gradient text-sistema-text-white">
+            <div className="bg-white rounded-xl border border-blue-300 overflow-hidden shadow-sm">
+              <div className="bg-blue-700 text-white">
                 <div className="grid grid-cols-4 gap-4 p-4 text-sm font-semibold">
                   <div>Nº Processo</div>
                   <div>Data</div>
@@ -72,8 +72,8 @@ export default function Historico() {
                   <div>Responsável</div>
                 </div>
               </div>
-              <div className="p-12 text-center text-sistema-text-secondary">
-                <div className="w-16 h-16 bg-sistema-background-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="p-12 text-center text-gray-600">
+                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -92,3 +92,4 @@ export default function Historico() {
     </Layout>
   )
 }
+

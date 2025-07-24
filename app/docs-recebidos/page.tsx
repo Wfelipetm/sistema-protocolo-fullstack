@@ -5,7 +5,7 @@ export default function DocsRecebidos() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-sistema-gradient rounded-xl p-6 text-sistema-text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -20,12 +20,12 @@ export default function DocsRecebidos() {
         </div>
 
         {/* Conteúdo */}
-        <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light p-8 shadow-sm">
-          <h2 className="text-3xl font-bold text-sistema-text-primary mb-8 border-b-4 border-sistema-text-primary pb-2 inline-block">
+        <div className="bg-white rounded-xl border border-blue-300 p-8 shadow-sm">
+          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
             Documentos Recebidos
           </h2>
-          <div className="text-center text-sistema-text-secondary py-12">
-            <div className="w-24 h-24 bg-sistema-background-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="text-center text-gray-600 py-12">
+            <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -42,3 +42,4 @@ export default function DocsRecebidos() {
     </Layout>
   )
 }
+

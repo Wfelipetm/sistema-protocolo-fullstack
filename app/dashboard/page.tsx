@@ -5,7 +5,7 @@ export default function Dashboard() {
     <Layout>
       <div className="space-y-6">
         {/* Header com gradiente */}
-        <div className="bg-sistema-gradient rounded-xl p-6 text-sistema-text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -24,11 +24,11 @@ export default function Dashboard() {
         </div>
 
         {/* Área de conteúdo principal */}
-        <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light p-12 shadow-sm">
-          <div className="text-center text-sistema-text-secondary">
-            <div className="w-24 h-24 bg-sistema-background-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="bg-white rounded-xl border border-blue-300 p-12 shadow-sm">
+          <div className="text-center text-gray-600">
+            <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
-                className="w-12 h-12 text-sistema-text-secondary"
+                className="w-12 h-12 text-blue-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -41,11 +41,12 @@ export default function Dashboard() {
                 />
               </svg>
             </div>
-            <h2 className="text-xl font-semibold text-sistema-text-primary mb-2">Bem-vindo ao Sistema de Protocolo</h2>
-            <p className="text-sistema-text-secondary">Selecione uma opção no menu lateral para começar</p>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Bem-vindo ao Sistema de Protocolo</h2>
+            <p className="text-gray-600">Selecione uma opção no menu lateral para começar</p>
           </div>
         </div>
       </div>
     </Layout>
   )
 }
+

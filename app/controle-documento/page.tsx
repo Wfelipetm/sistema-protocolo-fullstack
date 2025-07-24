@@ -6,7 +6,7 @@ export default function ControleDocumento() {
     <Layout>
       <div className="space-y-3">
         {/* Header */}
-        <div className="bg-sistema-gradient rounded-xl p-4 text-sistema-text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-4 text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -21,14 +21,14 @@ export default function ControleDocumento() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light p-8 shadow-sm">
-          <h2 className="text-3xl font-bold text-sistema-text-primary mb-8 border-b-4 border-sistema-text-primary pb-2 inline-block">
+        <div className="bg-[#eaf6ff] rounded-xl border border-blue-300 p-6 shadow-sm">
+          <h2 className="text-3xl font-bold text-black mb-4 border-b-4 border-black pb-2 inline-block">
             Controle de Documentos
           </h2>
 
           {/* Tabela principal */}
-          <div className="bg-sistema-background-primary rounded-xl border border-sistema-border-light overflow-hidden mb-8 shadow-sm">
-            <div className="bg-sistema-gradient text-sistema-text-white">
+          <div className="bg-white rounded-xl border overflow-hidden mb-3 shadow-md">
+            <div className="bg-blue-700 text-white">
               <div className="grid grid-cols-10 gap-4 p-4 text-sm font-semibold">
                 <div>Opções</div>
                 <div>Status.Doc</div>
@@ -42,21 +42,21 @@ export default function ControleDocumento() {
                 <div>Assunto</div>
               </div>
             </div>
-            <div className="p-12 text-center text-sistema-text-secondary">
+            <div className="p-12 text-center text-gray-600">
               <p className="text-lg">Nenhum documento encontrado</p>
             </div>
           </div>
 
           {/* Seção Gráficos */}
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-sistema-text-primary border-b-4 border-sistema-text-primary pb-2 inline-block">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-2xl font-bold text-black border-b-4 border-black pb-2 inline-block">
               Gráficos
             </h3>
             <div className="flex space-x-4">
-              <Button className="bg-sistema-primary hover:bg-sistema-secondary text-sistema-text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar
               </Button>
-              <Button className="bg-sistema-primary hover:bg-sistema-secondary text-sistema-text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar CI
               </Button>
             </div>
@@ -64,9 +64,9 @@ export default function ControleDocumento() {
 
           {/* Área dos gráficos */}
           <div className="grid grid-cols-2 gap-8">
-            <div className="bg-sistema-background-secondary rounded-xl border border-sistema-border-light p-8 h-80 flex items-center justify-center shadow-sm">
-              <div className="text-center text-sistema-text-secondary">
-                <div className="w-16 h-16 bg-sistema-border-light rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+              <div className="text-center text-gray-600">
+                <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -79,9 +79,9 @@ export default function ControleDocumento() {
                 <p className="font-medium">Gráfico 1</p>
               </div>
             </div>
-            <div className="bg-sistema-background-secondary rounded-xl border border-sistema-border-light p-8 h-80 flex items-center justify-center shadow-sm">
-              <div className="text-center text-sistema-text-secondary">
-                <div className="w-16 h-16 bg-sistema-border-light rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+              <div className="text-center text-gray-600">
+                <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -106,3 +106,4 @@ export default function ControleDocumento() {
     </Layout>
   )
 }
+
