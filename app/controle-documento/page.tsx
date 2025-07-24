@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button"
 export default function ControleDocumento() {
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-3">
         {/* Header */}
-        <div className="bg-sistema-gradient rounded-xl p-6 text-sistema-text-white shadow-lg">
+        <div className="bg-sistema-gradient rounded-xl p-4 text-sistema-text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
