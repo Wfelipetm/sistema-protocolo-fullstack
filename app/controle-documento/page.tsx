@@ -7,7 +7,7 @@ export default function ControleDocumento() {
     <Layout>
       <div className="space-y-3">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-4 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <FileCheck className="w-8 h-8" />
@@ -20,14 +20,22 @@ export default function ControleDocumento() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-[#eaf6ff80] rounded-xl border border-slate-300 p-6 shadow-sm">
-          <h2 className="text-3xl font-bold text-black mb-4 border-b-4 border-blue-200 pb-2 inline-block">
+        <div className="bg-[#eaf6ff80] rounded-xl border p-6 shadow-sm">
+            <h2
+            className="text-3xl font-bold text-sky-700 mb-4 pb-2 inline-block border-b-4"
+            style={{
+              borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+              borderBottomWidth: "4px",
+              borderBottomStyle: "solid",
+              borderBottomColor: "transparent",
+            }}
+            >
             Controle de Documentos
-          </h2>
+            </h2>
 
           {/* Tabela principal */}
           <div className="bg-white rounded-xl border overflow-hidden mb-3 shadow-md">
-            <div className="bg-blue-700 text-white">
+            <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white">
               <div className="grid grid-cols-10 gap-4 p-4 text-sm font-semibold">
                 <div>Opções</div>
                 <div>Status.Doc</div>
@@ -48,14 +56,21 @@ export default function ControleDocumento() {
 
           {/* Seção Gráficos */}
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-2xl font-bold text-black border-b-4 border-black pb-2 inline-block">
+            <h3 className="text-3xl font-bold text-sky-700 mb-4 pb-2 inline-block border-b-4"
+            style={{
+              borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+              borderBottomWidth: "4px",
+              borderBottomStyle: "solid",
+              borderBottomColor: "transparent",
+              
+            }}>
               Gráficos
             </h3>
             <div className="flex space-x-4">
-              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar
               </Button>
-              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar CI
               </Button>
             </div>

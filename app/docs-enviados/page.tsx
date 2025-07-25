@@ -6,7 +6,7 @@ export default function DocsEnviados() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <Send className="w-8 h-8" />
@@ -19,14 +19,14 @@ export default function DocsEnviados() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-white rounded-xl border border-blue-300 p-8 shadow-sm">
-          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
-            Controle de Documentos
+        <div className="bg-[#eaf6ff80] rounded-xl border p-8 shadow-md">
+          <h2 className="text-3xl font-bold text-sky-700 mb-8 border-b-4 border-sky-700 pb-2 inline-block">
+            Documentos Enviados
           </h2>
 
           {/* Tabela de Documentos Enviados */}
-          <div className="bg-white rounded-xl border border-blue-300 overflow-hidden mb-8 shadow-sm">
-            <div className="bg-blue-700 text-white">
+          <div className="bg-white rounded-xl border  overflow-hidden mb-8 shadow-md">
+            <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white">
               <div className="grid grid-cols-5 gap-4 p-4 text-sm font-semibold">
                 <div>Enviado Por</div>
                 <div>Data Envio</div>
@@ -52,14 +52,14 @@ export default function DocsEnviados() {
 
           {/* Seção Gráficos */}
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-black border-b-4 border-black pb-2 inline-block mb-6">
+            <h3 className="text-2xl font-bold text-sky-700 border-b-4 border-sky-700 pb-2 inline-block mb-6">
               Gráficos
             </h3>
           </div>
 
           {/* Área dos gráficos */}
           <div className="grid grid-cols-2 gap-8">
-            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+            <div className="bg-white rounded-xl border  p-8 h-80 flex items-center justify-center shadow-md">
               <div className="text-center text-gray-600">
                 <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ export default function DocsEnviados() {
                 <p className="font-medium">Gráfico de Envios por Período</p>
               </div>
             </div>
-            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+            <div className="bg-white rounded-xl border  p-8 h-80 flex items-center justify-center shadow-md">
               <div className="text-center text-gray-600">
                 <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -8,7 +8,7 @@ export default function Localizar() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <Search className="w-8 h-8" />
@@ -22,11 +22,11 @@ export default function Localizar() {
 
         {/* Formulário de Localização */}
         <div className="bg-[#eaf6ff80]  rounded-xl border border-slate-200 p-8 shadow-md">
-          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
+          <h2 className="text-3xl font-bold text-sky-700 border-sky-700 mb-8 border-b-4 pb-2 inline-block">
             Localizar
           </h2>
 
-          <form className="space-y-8">
+          <form >
             {/* Primeira linha */}
             <div className="grid grid-cols-4 gap-6">
               <div className="space-y-2">

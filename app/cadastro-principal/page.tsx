@@ -10,7 +10,7 @@ export default function CadastroPrincipal() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <Users className="w-8 h-8" />
@@ -23,8 +23,8 @@ export default function CadastroPrincipal() {
         </div>
 
         {/* Formulário */}
-        <div className="bg-[#eaf6ff80] rounded-xl border border-slate-300 p-6 shadow-md">
-          <h2 className="text-2xl font-bold text-black mb-4 border-b-4 border-black inline-block pb-1">
+        <div className="bg-[#eaf6ff80] rounded-xl border p-6 shadow-md">
+          <h2 className="text-2xl font-bold text-sky-700 mb-4 border-b-4 border-sky-700 inline-block pb-1">
             Cadastro Principal
           </h2>
 
@@ -71,18 +71,18 @@ export default function CadastroPrincipal() {
                   />
                 </div>
                 {/* Botões */}
-                <div className="flex justify-end gap-2 mt-4">
-                  <Button className="bg-blue-700 hover:bg-blue-800 text-white px-9 py-2 rounded shadow text-sm">
+                <div className="flex justify-center gap-3 mt-4">
+                  <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-9 py-2 rounded shadow text-sm">
                     Gerar Primeira Tramitação
                   </Button>
-                  <Button className="bg-blue-700 hover:bg-blue-800 text-white px-9 py-2 rounded shadow text-sm">
+                  <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-9 py-2 rounded shadow text-sm">
                     Gerar Processo em Série
                   </Button>
                 </div>
               </div>
             </div>
 
-            <h3 className="text-xl font-bold text-black mb-4 border-b-4 border-black inline-block pb-1">
+            <h3 className="text-xl font-bold text-sky-700 mb-4 border-b-4 border-sky-700 inline-block pb-1">
               Informe os dados para a primeira tramitação
             </h3>
 
@@ -112,7 +112,7 @@ export default function CadastroPrincipal() {
               ].map((label, idx) => (
                 <Button
                   key={idx}
-                  className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded shadow transition-colors"
+                  className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-14 py-2 rounded shadow transition-colors"
                 >
                   {label}
                 </Button>
