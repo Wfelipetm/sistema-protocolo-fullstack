@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { api } from "@/lib/api"
 import { DocumentoControle } from "@/types"
+import { FileCheck } from "lucide-react" // Adiciona o ícone FileCheck
 
 // Tipos para formulários de DocumentoControle
 interface DocumentoControleForm {
