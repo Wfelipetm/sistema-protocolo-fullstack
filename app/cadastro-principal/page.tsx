@@ -417,19 +417,12 @@ export default function CadastroPrincipal() {
                     placeholder="Digite a súmula do documento..."
                   />
                 </div>
-                {/* Botões */}
-                <div className="flex justify-end gap-2 mt-4">
-                  <Button 
-                    type="submit"
-                    disabled={loading}
-                    className="bg-blue-700 hover:bg-blue-800 text-white px-9 py-2 rounded shadow text-sm disabled:opacity-50"
-                  >
-                    {loading ? "Salvando..." : "Salvar Processo"}
+                {/* Botões */}                
+                <div className="flex justify-center gap-3 mt-4">
+                  <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-9 py-2 rounded shadow text-sm">
+                    Gerar Primeira Tramitação
                   </Button>
-                  <Button 
-                    type="button"
-                    className="bg-green-700 hover:bg-green-800 text-white px-9 py-2 rounded shadow text-sm"
-                  >
+                  <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-9 py-2 rounded shadow text-sm">
                     Gerar Processo em Série
                   </Button>
                 </div>

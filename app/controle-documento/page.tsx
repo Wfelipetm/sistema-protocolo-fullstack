@@ -100,13 +100,13 @@ export default function ControleDocumento() {
       // Buscar processos que correspondem ao filtro
       const processosEncontrados = processos.filter(processo => {
         // Verificar se o numero_documento não está vazio
-        const matchNumero = processo.numero_documento && 
+        const matchNumero = processo.numero_documento &&
           processo.numero_documento.toLowerCase().includes(filtroProcesso.toLowerCase())
         const matchId = processo.id.toString().includes(filtroProcesso)
-        
+
         return matchNumero || matchId
       })
-      
+
       setProcessosFiltrados(processosEncontrados)
     }
   }, [processos, filtroProcesso])
@@ -115,7 +115,7 @@ export default function ControleDocumento() {
     try {
       setLoading(true)
       setError(null)
-      
+
       // Carregar documentos e processos em paralelo
       const [dadosDocumentos, dadosProcessos] = await Promise.all([
         documentosControleApi.listarTodos().catch(err => {
@@ -127,7 +127,7 @@ export default function ControleDocumento() {
           return []
         })
       ])
-      
+
       setDocumentos(dadosDocumentos)
       setProcessos(dadosProcessos)
       setProcessosFiltrados(dadosProcessos)
@@ -182,23 +182,21 @@ export default function ControleDocumento() {
 
         {/* Controle de Documentos */}
         <div className="bg-[#eaf6ff80] rounded-xl border p-6 shadow-sm">
+          <div className="flex items-end justify-between mb-4">
             <h2
-            className="text-3xl font-bold text-sky-700 mb-4 pb-2 inline-block border-b-4"
-            style={{
-              borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
-              borderBottomWidth: "4px",
-              borderBottomStyle: "solid",
-              borderBottomColor: "transparent",
-            }}
+              className="text-3xl font-bold text-sky-700 pb-2 inline-block border-b-4"
+              style={{
+                borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+                borderBottomWidth: "4px",
+                borderBottomStyle: "solid",
+                borderBottomColor: "transparent",
+              }}
             >
-            Controle de Documentos
-          </h2>
-
-          {/* Filtro de busca */}
-          <div className="mb-4 flex items-center space-x-4">
-            <div className="flex-1 max-w-md">
+              Controle de Documentos
+            </h2>
+            <div className="max-w-md w-full ml-6">
               <label htmlFor="filtro-processo" className="block text-sm font-medium text-gray-700 mb-2">
-                Buscar por Número do Documento do Processo
+                Buscar por Número do Processo
               </label>
               <Input
                 id="filtro-processo"
@@ -209,6 +207,10 @@ export default function ControleDocumento() {
                 className="w-full"
               />
             </div>
+          </div>
+          {/* Filtro de busca */}
+          <div className="mb-4 flex items-center space-x-4">
+            <div className="flex-1" />
             {filtroProcesso && (
               <div className="flex items-center space-x-2 pt-6">
                 <span className="text-sm text-gray-600">
@@ -242,7 +244,7 @@ export default function ControleDocumento() {
                 <div>Ações</div>
               </div>
             </div>
-            
+
             {loading ? (
               <div className="p-12 text-center text-gray-600">
                 <p className="text-lg">Carregando documentos...</p>
@@ -250,7 +252,7 @@ export default function ControleDocumento() {
             ) : error ? (
               <div className="p-12 text-center text-red-600">
                 <p className="text-lg">{error}</p>
-                <Button 
+                <Button
                   onClick={carregarDocumentos}
                   className="mt-4 bg-blue-700 hover:bg-blue-800"
                 >
@@ -260,10 +262,10 @@ export default function ControleDocumento() {
             ) : processosFiltrados.length === 0 ? (
               <div className="p-12 text-center text-gray-600">
                 <p className="text-lg">
-                  {filtroProcesso 
-                    ? `Nenhum processo encontrado com "${filtroProcesso}"` 
-                    : processos.length === 0 
-                      ? "Nenhum processo cadastrado" 
+                  {filtroProcesso
+                    ? `Nenhum processo encontrado com "${filtroProcesso}"`
+                    : processos.length === 0
+                      ? "Nenhum processo cadastrado"
                       : "Nenhum processo encontrado"
                   }
                 </p>
@@ -337,13 +339,13 @@ export default function ControleDocumento() {
           {/* Seção Gráficos */}
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-3xl font-bold text-sky-700 mb-4 pb-2 inline-block border-b-4"
-            style={{
-              borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
-              borderBottomWidth: "4px",
-              borderBottomStyle: "solid",
-              borderBottomColor: "transparent",
-              
-            }}>
+              style={{
+                borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+                borderBottomWidth: "4px",
+                borderBottomStyle: "solid",
+                borderBottomColor: "transparent",
+
+              }}>
               Gráficos
             </h3>
             <div className="flex space-x-4">
