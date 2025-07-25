@@ -6,7 +6,7 @@ export default function ControleDocumento() {
     <Layout>
       <div className="space-y-3">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-4 text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -21,7 +21,7 @@ export default function ControleDocumento() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-[#eaf6ff] rounded-xl border border-blue-300 p-6 shadow-sm">
+        <div className="bg-[#eaf6ff80] rounded-xl border border-slate-300 p-6 shadow-sm">
           <h2 className="text-3xl font-bold text-black mb-4 border-b-4 border-black pb-2 inline-block">
             Controle de Documentos
           </h2>
@@ -64,7 +64,7 @@ export default function ControleDocumento() {
 
           {/* Área dos gráficos */}
           <div className="grid grid-cols-2 gap-8">
-            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+            <div className="bg-white rounded-xl border p-8 h-80 flex items-center justify-center shadow-md">
               <div className="text-center text-gray-600">
                 <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ export default function ControleDocumento() {
                 <p className="font-medium">Gráfico 1</p>
               </div>
             </div>
-            <div className="bg-blue-50 rounded-xl border border-blue-300 p-8 h-80 flex items-center justify-center shadow-sm">
+            <div className="bg-white rounded-xl border p-8 h-80 flex items-center justify-center shadow-md">
               <div className="text-center text-gray-600">
                 <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

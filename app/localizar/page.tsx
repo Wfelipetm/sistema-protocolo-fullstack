@@ -7,7 +7,7 @@ export default function Localizar() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
+        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -22,7 +22,7 @@ export default function Localizar() {
         </div>
 
         {/* Formulário de Localização */}
-        <div className="bg-white rounded-xl border border-blue-300 p-8 shadow-sm">
+        <div className="bg-[#eaf6ff80]  rounded-xl border border-slate-200 p-8 shadow-md">
           <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
             Localizar
           </h2>

@@ -65,7 +65,7 @@ export default function Layout({ children }: LayoutProps) {
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
         {/* Header - Full Width */}
-        <header className="bg-white border-b px-6 py-4 w-full">
+        <header className="bg-white shadow-lg px-6 py-4 w-full">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
@@ -77,6 +77,15 @@ export default function Layout({ children }: LayoutProps) {
                   <p className="text-sm text-blue-600">Sistema para abertura de protocolo</p>
                 </div>
               </div>
+            </div>
+
+            {/* Logo central */}
+            <div className="flex-1 flex justify-center">
+              <img
+                src="/SMCTIC---Azul.png"
+                alt="Secretaria de Ciência, Tecnologia, Inovação e Comunicação"
+                className="h-16 max-w-[400px] object-contain"
+              />
             </div>
 
             <div className="flex items-center space-x-6">
@@ -97,7 +106,7 @@ export default function Layout({ children }: LayoutProps) {
                   onClick={() => setShowUserMenu((v) => !v)}
                 >
                   <div className="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">{user?.name?.charAt(0) || "U"}</span>
+                    <span className="text-white font-bold text-lg">{user?.nome?.charAt(0) || "U"}</span>
                   </div>
                 </button>
                 {showUserMenu && (
@@ -108,7 +117,7 @@ export default function Layout({ children }: LayoutProps) {
                     aria-labelledby="user-menu-button"
                   >
                     <div className="px-4 py-3 border-b">
-                      <p className="text-sm font-semibold text-blue-900">{user?.name}</p>
+                      <p className="text-sm font-semibold text-blue-900">{user?.nome}</p>
                       <p className="text-xs text-blue-700">{user?.email}</p>
                     </div>
                     <div className="py-2">
@@ -134,13 +143,13 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex h-[calc(100vh-88px)]">
           {/* Sidebar */}
           <aside
-            className={`bg-white border-r border-blue-300 transition-all duration-300 flex flex-col relative group ${sidebarCollapsed ? "w-16" : "w-64"
+            className={`bg-white shadow-lg transition-all duration-500 flex flex-col relative group ${sidebarCollapsed ? "w-16" : "w-64"
               }`}
           >
             {/* Botão de Toggle Sutil */}
             <button
               onClick={toggleSidebar}
-              className="absolute top-1/2 -right-2 transform -translate-y-1/2 z-10 w-4 h-8 bg-blue-100 hover:bg-blue-200 border-r border-t border-b border-blue-300 rounded-r-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center focus:outline-none focus:opacity-100"
+              className="absolute top-1/2 -right-2 transform -translate-y-1/2 z-10 w-4 h-20 bg-white hover:bg-blue-200 border-r border-t border-b border-white rounded-r-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center focus:outline-none focus:opacity-100"
               title={sidebarCollapsed ? "Expandir sidebar" : "Recolher sidebar"}
             >
               {sidebarCollapsed ? (
@@ -151,17 +160,32 @@ export default function Layout({ children }: LayoutProps) {
             </button>
 
             {/* Sidebar Content */}
-            <nav className="flex-1 p-4">
-              <ul className="space-y-1">
+            <nav className={`flex-1 transition-all duration-300 ${sidebarCollapsed ? 'p-2' : 'p-4'}`}>
+              <ul className={`transition-all duration-300 ${sidebarCollapsed ? 'space-y-0.5' : 'space-y-1'}`}>
                 {menuItems.map((item, index) => (
                   <li key={index}>
                     <a
                       href={item.href}
-                      className="flex items-center space-x-3 px-3 py-3 text-blue-700 hover:bg-blue-50 hover:text-blue-800 rounded-lg transition-colors group"
+                      className={`flex items-center text-blue-700 hover:bg-blue-50 hover:text-blue-800 rounded-lg transition-all duration-300 group ${
+                        sidebarCollapsed 
+                          ? 'space-x-0 px-2 py-5 justify-center ' 
+                          : 'space-x-3 px-3 py-3'
+                      }`}
                       title={sidebarCollapsed ? item.label : undefined}
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!sidebarCollapsed && <span className="text-sm font-medium">{item.label}</span>}
+                      <span 
+                        className={`text-sm font-medium transition-all duration-300 ${
+                          sidebarCollapsed 
+                            ? 'opacity-0 scale-95 w-0 overflow-hidden' 
+                            : 'opacity-100 scale-100 w-auto'
+                        }`}
+                        style={{
+                          transitionDelay: sidebarCollapsed ? '0ms' : '150ms'
+                        }}
+                      >
+                        {item.label}
+                      </span>
                     </a>
                   </li>
                 ))}
@@ -169,20 +193,37 @@ export default function Layout({ children }: LayoutProps) {
             </nav>
 
             {/* Sidebar Footer */}
-            <div className="p-4 border-t border-blue-300">
-              {!sidebarCollapsed ? (
-                <div className="text-xs text-gray-600 space-y-1">
-                  <p>©2025 Sistema Protocolo</p>
+            <div className="p-4 ">
+              <div 
+                className={`transition-all duration-300 ${
+                  sidebarCollapsed 
+                    ? 'opacity-0 scale-95 overflow-hidden' 
+                    : 'opacity-100 scale-100'
+                }`}
+                style={{
+                  transitionDelay: sidebarCollapsed ? '0ms' : '150ms'
+                }}
+              >
+                <div className="text-xs text-end text-blue-700 space-y-1">
+                    <p>©{new Date().getFullYear()} Sistema Protocolo</p>
                   <p>Desenvolvido por SMCTIC</p>
                   <p>Versão 1.0.0</p>
                 </div>
-              ) : (
-                <div className="flex justify-center">
-                  <div className="w-6 h-6 bg-blue-700 rounded flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">S</span>
-                  </div>
+              </div>
+              <div 
+                className={`flex justify-center transition-all duration-300 ${
+                  sidebarCollapsed 
+                    ? 'opacity-100 scale-100' 
+                    : 'opacity-0 scale-95 overflow-hidden'
+                }`}
+                style={{
+                  transitionDelay: sidebarCollapsed ? '150ms' : '0ms'
+                }}
+              >
+                <div className="w-6 h-6 bg-blue-700 rounded flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">S</span>
                 </div>
-              )}
+              </div>
             </div>
           </aside>
 
