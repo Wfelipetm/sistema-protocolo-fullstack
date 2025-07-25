@@ -1,4 +1,5 @@
 import Layout from "@/components/layout"
+import { FileText } from "lucide-react"
 
 export default function Dashboard() {
   return (
@@ -8,13 +9,7 @@ export default function Dashboard() {
         <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-                <polyline points="14,2 14,8 20,8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10,9 9,9 8,9" />
-              </svg>
+              <FileText className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>

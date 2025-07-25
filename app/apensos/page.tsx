@@ -1,4 +1,5 @@
 import Layout from "@/components/layout"
+import { FileX } from "lucide-react"
 
 export default function Apensos() {
   return (
@@ -8,9 +9,7 @@ export default function Apensos() {
         <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-              </svg>
+              <FileX className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>
