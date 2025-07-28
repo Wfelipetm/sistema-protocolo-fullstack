@@ -1,16 +1,15 @@
 import Layout from "@/components/layout"
+import { FileText } from "lucide-react"
 
 export default function DocsRecebidos() {
   return (
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-              </svg>
+              <FileText className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>
@@ -20,8 +19,8 @@ export default function DocsRecebidos() {
         </div>
 
         {/* Conteúdo */}
-        <div className="bg-[#eaf6ff80] rounded-xl border border-slate-300 p-8 shadow-md">
-          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
+        <div className="bg-[#eaf6ff80] rounded-xl border p-8 shadow-md">
+          <h2 className="text-3xl font-bold text-sky-700 mb-8 border-b-4 border-[#0287c7] pb-2 inline-block">
             Documentos Recebidos
           </h2>
           <div className="text-center text-gray-600 py-12">

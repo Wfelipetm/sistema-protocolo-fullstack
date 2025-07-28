@@ -1,16 +1,15 @@
 import Layout from "@/components/layout"
+import { History } from "lucide-react"
 
 export default function Historico() {
   return (
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-lg">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-              </svg>
+              <History className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>
@@ -20,19 +19,19 @@ export default function Historico() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-white rounded-xl border border-blue-300 p-8 shadow-sm">
-          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
-            Controle de Documentos
+        <div className="bg-[#eaf6ff80] rounded-xl border p-8 shadow-md">
+          <h2 className="text-3xl font-bold text-sky-700 mb-8 border-b-4 border-sky-700 pb-2 inline-block">
+            Histórico
           </h2>
 
           {/* Lista Apensos */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-black">Lista Apensos</h3>
+              <h3 className="text-xl font-bold text-sky-700">Lista Apensos</h3>
             </div>
 
-            <div className="bg-white rounded-xl border border-blue-300 overflow-hidden shadow-sm">
-              <div className="bg-blue-700 text-white">
+            <div className="bg-white rounded-xl border  overflow-hidden shadow-md">
+              <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white">
                 <div className="grid grid-cols-5 gap-4 p-4 text-sm font-semibold">
                   <div>Nº Documento</div>
                   <div>Tipo de Documento</div>
@@ -60,11 +59,11 @@ export default function Historico() {
           {/* Lista Histórico */}
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-black">Lista Histórico</h3>
+              <h3 className="text-xl font-bold text-sky-700">Lista Histórico</h3>
             </div>
 
-            <div className="bg-white rounded-xl border border-blue-300 overflow-hidden shadow-sm">
-              <div className="bg-blue-700 text-white">
+            <div className="bg-white rounded-xl border overflow-hidden shadow-md">
+              <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white">
                 <div className="grid grid-cols-4 gap-4 p-4 text-sm font-semibold">
                   <div>Nº Processo</div>
                   <div>Data</div>

@@ -2,18 +2,17 @@ import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { CreditCard } from "lucide-react"
 
 export default function Pagamentos() {
   return (
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-6 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-              </svg>
+              <CreditCard className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>
@@ -24,13 +23,13 @@ export default function Pagamentos() {
 
         {/* Controle de Documentos */}
         <div className="bg-[#eaf6ff80] rounded-xl border border-slate-200 p-8 shadow-md">
-          <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
+          {/* <h2 className="text-3xl font-bold text-black mb-8 border-b-4 border-black pb-2 inline-block">
             Controle de Documentos
-          </h2>
+          </h2> */}
 
           {/* Formulário de Pagamentos */}
           <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-md">
-            <div className="bg-blue-700 text-white p-4">
+            <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white p-4">
               <h3 className="font-semibold text-lg">Processo Outros(Pagamentos)</h3>
             </div>
 
@@ -88,7 +87,7 @@ export default function Pagamentos() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-blue-700 hover:bg-blue-800 text-white px-10 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-10 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                   Cadastrar
                 </Button>
               </div>

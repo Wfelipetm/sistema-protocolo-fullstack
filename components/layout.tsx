@@ -89,7 +89,7 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             <div className="flex items-center space-x-6">
-              
+
               {/* <div className="text-right">
                 <p className="text-sm font-semibold text-white leading-tight">Prefeitura de</p>
                 <p className="text-sm font-semibold text-white leading-tight">Secretaria de</p>
@@ -125,7 +125,7 @@ export default function Layout({ children }: LayoutProps) {
                         onClick={logout}
                         variant="ghost"
                         size="sm"
-                        className="w-full flex items-center justify-start text-blue-700 hover:text-white hover:bg-blue-800"
+                        className="w-full flex items-center justify-start text-blue-700 hover:text-red-600 hover:bg-blue-100"
                         title="Sair do sistema"
                       >
                         <LogOut className="w-4 h-4 mr-2" />
@@ -143,7 +143,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex h-[calc(100vh-88px)]">
           {/* Sidebar */}
           <aside
-            className={`bg-white shadow-lg transition-all duration-500 flex flex-col relative group ${sidebarCollapsed ? "w-16" : "w-64"
+            className={`bg-white shadow-lg sha transition-all duration-500 flex flex-col relative group ${sidebarCollapsed ? "w-16" : "w-64"
               }`}
           >
             {/* Botão de Toggle Sutil */}
@@ -166,20 +166,18 @@ export default function Layout({ children }: LayoutProps) {
                   <li key={index}>
                     <a
                       href={item.href}
-                      className={`flex items-center text-blue-700 hover:bg-blue-50 hover:text-blue-800 rounded-lg transition-all duration-300 group ${
-                        sidebarCollapsed 
-                          ? 'space-x-0 px-2 py-5 justify-center ' 
+                      className={`flex items-center text-blue-700 hover:bg-blue-50 hover:text-blue-800 rounded-lg transition-all duration-300 group ${sidebarCollapsed
+                          ? 'space-x-0 px-2 py-3 justify-center h-16'
                           : 'space-x-3 px-3 py-3'
-                      }`}
+                        }`}
                       title={sidebarCollapsed ? item.label : undefined}
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
-                      <span 
-                        className={`text-sm font-medium transition-all duration-300 ${
-                          sidebarCollapsed 
-                            ? 'opacity-0 scale-95 w-0 overflow-hidden' 
+                      <span
+                        className={`text-sm font-medium transition-all duration-300 ${sidebarCollapsed
+                            ? 'opacity-0 scale-95 w-0 overflow-hidden'
                             : 'opacity-100 scale-100 w-auto'
-                        }`}
+                          }`}
                         style={{
                           transitionDelay: sidebarCollapsed ? '0ms' : '150ms'
                         }}
@@ -194,23 +192,22 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* Sidebar Footer */}
             <div className="p-4 ">
-              <div 
-                className={`transition-all duration-300 ${
-                  sidebarCollapsed 
-                    ? 'opacity-0 scale-95 overflow-hidden' 
+              <div
+                className={`transition-all duration-300 ${sidebarCollapsed
+                    ? 'opacity-0 scale-95 overflow-hidden'
                     : 'opacity-100 scale-100'
-                }`}
+                  }`}
                 style={{
                   transitionDelay: sidebarCollapsed ? '0ms' : '150ms'
                 }}
               >
                 <div className="text-xs text-end text-blue-700 space-y-1">
-                    <p>©{new Date().getFullYear()} Sistema Protocolo</p>
+                  <p>©{new Date().getFullYear()} Sistema Protocolo</p>
                   <p>Desenvolvido por SMCTIC</p>
                   <p>Versão 1.0.0</p>
                 </div>
               </div>
-              <div 
+              {/* <div 
                 className={`flex justify-center transition-all duration-300 ${
                   sidebarCollapsed 
                     ? 'opacity-100 scale-100' 
@@ -223,7 +220,7 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="w-6 h-6 bg-blue-700 rounded flex items-center justify-center">
                   <span className="text-white text-xs font-bold">S</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </aside>
 

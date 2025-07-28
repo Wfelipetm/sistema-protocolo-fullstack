@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { api } from "@/lib/api"
 import { DocumentoControle } from "@/types"
+import { FileCheck } from "lucide-react" // Adiciona o ícone FileCheck
 
 // Tipos para formulários de DocumentoControle
 interface DocumentoControleForm {
@@ -99,13 +100,13 @@ export default function ControleDocumento() {
       // Buscar processos que correspondem ao filtro
       const processosEncontrados = processos.filter(processo => {
         // Verificar se o numero_documento não está vazio
-        const matchNumero = processo.numero_documento && 
+        const matchNumero = processo.numero_documento &&
           processo.numero_documento.toLowerCase().includes(filtroProcesso.toLowerCase())
         const matchId = processo.id.toString().includes(filtroProcesso)
-        
+
         return matchNumero || matchId
       })
-      
+
       setProcessosFiltrados(processosEncontrados)
     }
   }, [processos, filtroProcesso])
@@ -114,7 +115,7 @@ export default function ControleDocumento() {
     try {
       setLoading(true)
       setError(null)
-      
+
       // Carregar documentos e processos em paralelo
       const [dadosDocumentos, dadosProcessos] = await Promise.all([
         documentosControleApi.listarTodos().catch(err => {
@@ -126,7 +127,7 @@ export default function ControleDocumento() {
           return []
         })
       ])
-      
+
       setDocumentos(dadosDocumentos)
       setProcessos(dadosProcessos)
       setProcessosFiltrados(dadosProcessos)
@@ -167,12 +168,10 @@ export default function ControleDocumento() {
     <Layout>
       <div className="space-y-3">
         {/* Header */}
-        <div className="bg-blue-700 rounded-xl p-4 text-white shadow-md">
+        <div className="from-sky-600 to-blue-600 bg-gradient-to-r rounded-xl p-4 text-white shadow-md">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-              </svg>
+              <FileCheck className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold">Sistema de protocolo</h1>
@@ -182,16 +181,22 @@ export default function ControleDocumento() {
         </div>
 
         {/* Controle de Documentos */}
-        <div className="bg-[#eaf6ff80] rounded-xl border border-slate-300 p-6 shadow-sm">
-          <h2 className="text-3xl font-bold text-black mb-4 border-b-4 border-black pb-2 inline-block">
-            Controle de Documentos
-          </h2>
-
-          {/* Filtro de busca */}
-          <div className="mb-4 flex items-center space-x-4">
-            <div className="flex-1 max-w-md">
+        <div className="bg-[#eaf6ff80] rounded-xl border p-6 shadow-sm">
+          <div className="flex items-end justify-between mb-4">
+            <h2
+              className="text-3xl font-bold text-sky-700 pb-2 inline-block border-b-4"
+              style={{
+                borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+                borderBottomWidth: "4px",
+                borderBottomStyle: "solid",
+                borderBottomColor: "transparent",
+              }}
+            >
+              Controle de Documentos
+            </h2>
+            <div className="max-w-md w-full ml-6">
               <label htmlFor="filtro-processo" className="block text-sm font-medium text-gray-700 mb-2">
-                Buscar por Número do Documento do Processo
+                Buscar por Número do Processo
               </label>
               <Input
                 id="filtro-processo"
@@ -202,6 +207,10 @@ export default function ControleDocumento() {
                 className="w-full"
               />
             </div>
+          </div>
+          {/* Filtro de busca */}
+          <div className="mb-4 flex items-center space-x-4">
+            <div className="flex-1" />
             {filtroProcesso && (
               <div className="flex items-center space-x-2 pt-6">
                 <span className="text-sm text-gray-600">
@@ -221,7 +230,7 @@ export default function ControleDocumento() {
 
           {/* Tabela principal */}
           <div className="bg-white rounded-xl border overflow-hidden mb-3 shadow-md">
-            <div className="bg-blue-700 text-white">
+            <div className="from-sky-600 to-blue-600 bg-gradient-to-r text-white">
               <div className="grid grid-cols-10 gap-4 p-4 text-sm font-semibold">
                 <div>Opções</div>
                 <div>Status</div>
@@ -235,7 +244,7 @@ export default function ControleDocumento() {
                 <div>Ações</div>
               </div>
             </div>
-            
+
             {loading ? (
               <div className="p-12 text-center text-gray-600">
                 <p className="text-lg">Carregando documentos...</p>
@@ -243,7 +252,7 @@ export default function ControleDocumento() {
             ) : error ? (
               <div className="p-12 text-center text-red-600">
                 <p className="text-lg">{error}</p>
-                <Button 
+                <Button
                   onClick={carregarDocumentos}
                   className="mt-4 bg-blue-700 hover:bg-blue-800"
                 >
@@ -253,10 +262,10 @@ export default function ControleDocumento() {
             ) : processosFiltrados.length === 0 ? (
               <div className="p-12 text-center text-gray-600">
                 <p className="text-lg">
-                  {filtroProcesso 
-                    ? `Nenhum processo encontrado com "${filtroProcesso}"` 
-                    : processos.length === 0 
-                      ? "Nenhum processo cadastrado" 
+                  {filtroProcesso
+                    ? `Nenhum processo encontrado com "${filtroProcesso}"`
+                    : processos.length === 0
+                      ? "Nenhum processo cadastrado"
                       : "Nenhum processo encontrado"
                   }
                 </p>
@@ -329,14 +338,21 @@ export default function ControleDocumento() {
 
           {/* Seção Gráficos */}
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-2xl font-bold text-black border-b-4 border-black pb-2 inline-block">
+            <h3 className="text-3xl font-bold text-sky-700 mb-4 pb-2 inline-block border-b-4"
+              style={{
+                borderImage: "linear-gradient(to right, #0287c7, #0287c7) 1",
+                borderBottomWidth: "4px",
+                borderBottomStyle: "solid",
+                borderBottomColor: "transparent",
+
+              }}>
               Gráficos
             </h3>
             <div className="flex space-x-4">
-              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar
               </Button>
-              <Button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+              <Button className="bg-[#103977] hover:bg-[#eaf6ff80] text-white border hover:text-[#103977] hover:border-[#103977] hover:border hover:font-medium px-6 py-3 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Arquivar CI
               </Button>
             </div>
