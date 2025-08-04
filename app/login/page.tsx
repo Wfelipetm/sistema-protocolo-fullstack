@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
@@ -82,17 +82,17 @@ export default function LoginPage() {
                   </Alert>
                 )}
                 <div className="space-y-3">
-                  <Label htmlFor="email" className="text-sm font-semibold text-blue-900">
-                    E-mail institucional
+                  <Label htmlFor="usuario" className="text-sm font-semibold text-blue-900">
+                    Usuário 
                   </Label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <FileText className="h-5 w-5 text-blue-400" />
                     </div>
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="seu.nome@itaguai.rj.gov.br"
+                      id="usuario"
+                      type="text"
+                      placeholder="Digite seu usuário"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-12 h-14 text-base border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-200"

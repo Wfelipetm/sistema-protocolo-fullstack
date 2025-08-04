@@ -1,10 +1,10 @@
 import axios from "axios"
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 
 export const api = axios.create({
-    baseURL: API_URL,
-    timeout: 5000, // 5 segundos timeout para testar conexão rapidamente
+    baseURL: `${API_URL}`,
 })
 
 // Interceptor para adicionar o token em todas as requisições
@@ -25,15 +25,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.error('Erro na API:', error);
-
         if (error.response?.status === 401) {
             // Token expirado ou inválido
             localStorage.removeItem("token")
             localStorage.removeItem("user")
             window.location.href = "/login"
         }
-
         return Promise.reject(error)
     },
 )

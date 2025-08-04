@@ -1,0 +1,197 @@
+
+# 📘 Explicação Técnica do DER – Sistema de Protocolo
+
+## 🔧 Objetivo do Sistema
+Gerenciar a tramitação de **processos administrativos** entre **setores**, com controle de **requerentes**, **pagamentos**, **documentos**, e **responsáveis internos**.
+
+## 🧱 Entidades Principais e Suas Funções
+
+### 1. UNIDADE
+Representa um órgão ou sede física (ex: "Unidade Central"). Uma unidade pode receber muitos processos.
+
+### 2. SECRETARIA
+Representa um setor administrativo superior (ex: "Secretaria de Obras"). Uma secretaria possui vários setores.
+
+### 3. SETOR
+Departamentos da secretaria. Podem ser origem, destino ou requerente do processo.
+
+### 4. REQUERENTE
+Pessoa física ou jurídica que solicita um protocolo. Cada requerente pode abrir vários processos.
+
+### 5. RESPONSÁVEL
+Funcionário da prefeitura que tramita processos. Cada responsável atua sobre diversos trâmites.
+
+### 6. PROCESSO
+Entidade central do sistema. Relaciona-se com requerente, unidade, secretaria, setores, trâmites, pagamentos e documentos.
+
+### 7. TRÂMITE
+Histórico da movimentação do processo entre setores. Vinculado a um responsável.
+
+### 8. PAGAMENTO
+Pagamentos vinculados a um processo. Um processo pode ter vários.
+
+### 9. DOCUMENTO_CONTROLE
+Documentos anexos e registros enviados com o processo.
+
+## 🔗 Relacionamentos-Chave
+
+| Pai         | Filho               | Tipo |
+|-------------|---------------------|------|
+| SECRETARIA  | SETOR               | 1:N  |
+| SETOR       | RESPONSÁVEL         | 1:N  |
+| REQUERENTE  | PROCESSO            | 1:N  |
+| UNIDADE     | PROCESSO            | 1:N  |
+| PROCESSO    | TRÂMITE             | 1:N  |
+| PROCESSO    | PAGAMENTO           | 1:N  |
+| PROCESSO    | DOCUMENTO_CONTROLE  | 1:N  |
+
+## 🚀 Backend – Considerações
+
+- Autenticação por responsáveis
+- Validação de CPF/CNPJ único
+- Campos obrigatórios com FK
+- Logs: created_at / updated_at
+- Filtros úteis nas rotas
+
+## 🎨 Frontend – Considerações
+
+- Formulários complexos
+- Telas para histórico de trâmite
+- Painéis para pagamentos e documentos
+- Selects dinâmicos para setores, unidades, responsáveis
+
+## 📦 Rotas RESTful Sugeridas
+
+### Processo
+GET /processos  
+POST /processos  
+GET /processos/:id  
+PUT /processos/:id  
+DELETE /processos/:id
+
+### Trâmite / Pagamento / Documento
+GET /processos/:id/tramites  
+POST /tramites  
+GET /processos/:id/pagamentos  
+POST /pagamentos  
+GET /processos/:id/documentos  
+POST /documentos
+
+### Relacionados
+GET /secretarias/:id/setores  
+GET /setores/:id/responsaveis  
+GET /requerentes/:id/processos
+
+
+
+
+
+
+
+
+🧱 Entidades Principais e Suas Funções
+
+1. UNIDADE
+
+Representa um órgão ou sede física (ex: "Unidade Central").
+Relacionamento: uma unidade pode receber muitos processos (1:N com processo).
+Backend: pode ser usada para autenticação ou filtros por unidade.
+Frontend: dropdown para selecionar onde o processo será aberto.
+
+2. SECRETARIA
+
+Representa um setor administrativo superior (ex: "Secretaria de Obras").
+Relacionamento: uma secretaria possui vários setores (1:N com setor).
+Frontend: associada ao setor, usada para hierarquia administrativa.
+
+3. SETOR
+
+Departamentos ou divisões da secretaria.
+Pode ser:
+setor de abertura do processo
+setor destino do processo
+setor do responsável
+Relacionamentos:
+N:1 com secretaria
+1:N com processo, responsavel e tramite
+
+4. REQUERENTE
+
+Pessoa física ou jurídica que solicita um protocolo.
+Campos importantes: CPF/CNPJ, tipo (ENUM).
+Relacionamento: 1:N com processo.
+
+
+5. RESPONSÁVEL
+
+Funcionário da prefeitura vinculado a um setor.
+Responsável por tramitar processos.
+Relacionamento: 1:N com tramite.
+
+6. PROCESSO
+
+Entidade central.
+Representa o documento/protocolo administrativo.
+Relacionamentos:
+N:1 com requerente, unidade, secretaria, setores
+1:N com tramite, pagamento, documento_controle
+Frontend: CRUD completo, com formulários complexos.
+
+
+7. TRÂMITE
+
+Histórico de movimentações do processo.
+Define a origem, destino e o responsável da tramitação.
+Backend: deve ser registrado sempre que houver mudança de setor.
+
+8. PAGAMENTO
+
+Informações financeiras vinculadas a um processo.
+Pode haver mais de um pagamento para um mesmo processo.
+Campos: valor, data, identificador.
+
+
+9. DOCUMENTO_CONTROLE
+
+Armazena dados dos documentos enviados com o processo.
+Pode incluir anexos, número de guia, apensos etc.
+
+
+| Entidade Pai | Entidade Filha      | Cardinalidade | Tipo |
+| ------------ | ------------------- | ------------- | ---- |
+| SECRETARIA   | SETOR               | 1\:N          | FK   |
+| SETOR        | RESPONSÁVEL         | 1\:N          | FK   |
+| REQUERENTE   | PROCESSO            | 1\:N          | FK   |
+| UNIDADE      | PROCESSO            | 1\:N          | FK   |
+| PROCESSO     | TRÂMITE             | 1\:N          | FK   |
+| PROCESSO     | PAGAMENTO           | 1\:N          | FK   |
+| PROCESSO     | DOCUMENTO\_CONTROLE | 1\:N          | FK   |
+
+
+
+
+🚀 Backend – Considerações
+
+Autenticação: usuários internos (responsáveis) podem tramitar processos.
+Validação:
+CPF/CNPJ únicos para requerentes.
+FK obrigatórias em tramites/pagamentos/documentos.
+Auditoria: campos created_at e updated_at em todas as tabelas.
+Filtros recomendados:
+/processos?setor=...
+/tramites?responsavel_id=...
+/requerentes/:id/processos
+
+
+
+🎨 Frontend – Considerações
+
+Formulários complexos para criação de processo (requerente, setor, documentos, pagamento).
+Telas específicas:
+Listagem e filtro de processos por setor, unidade ou status.
+Histórico de trâmite por processo.
+Tela de abertura e finalização de tramites.
+Painel de pagamentos vinculados.
+Componentes reutilizáveis:
+Select para unidades, setores e responsáveis.
+Visualização de documentos enviados e status de tramitação.

@@ -1,0 +1,193 @@
+# Exemplos de uso dos endpoints REST
+# Servidor protocol rodando em http://127.0.0.1:4001
+
+## UNIDADE
+- Listar todas: `GET /unidade`
+- Buscar por ID: `GET /unidade/:id`
+- Criar: `POST /unidade`
+  ```json
+  {
+    "nome": "Unidade Central",
+    "codigo": "UC01"
+  }
+  ```
+- Atualizar: `PUT /unidade/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /unidade/:id`
+
+## PAGAMENTO
+- Listar todos: `GET /pagamentos`
+- Buscar por ID: `GET /pagamentos/:id`
+- Criar: `POST /pagamentos`
+  ```json
+  {
+    "processo_principal_id": 1,
+    "numero_processo_pagamento": "2025-001",
+    "ano_pagamento": 2025,
+    "valor": 150.75,
+    "data_pagamento": "2025-07-22",
+    "identificador": "PG2025001"
+  }
+  ```
+- Atualizar: `PUT /pagamentos/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /pagamentos/:id`
+
+## RESPONSAVEL
+- Listar todos: `GET /responsaveis`
+- Buscar por ID: `GET /responsaveis/:id`
+- Criar: `POST /responsaveis`
+  ```json
+  {
+    "nome": "João Silva",
+    "cpf": "12345678900",
+    "email": "joao@exemplo.com",
+    "telefone": "11988887777",
+    "cargo": "Chefe",
+    "setor_id": 2
+  }
+  ```
+- Atualizar: `PUT /responsaveis/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /responsaveis/:id`
+
+## TRAMITE
+- Listar todos: `GET /tramites`
+- Buscar por ID: `GET /tramites/:id`
+- Criar: `POST /tramites`
+  ```json
+  {
+    "processo_id": 1,
+    "setor_origem_id": 2,
+    "setor_destino_id": 3,
+    "responsavel_id": 4,
+    "data_tramite": "2025-07-22",
+    "observacoes": "Trâmite inicial",
+    "situacao": "em_andamento"
+  }
+  ```
+- Atualizar: `PUT /tramites/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /tramites/:id`
+
+## PROCESSO
+- Listar todos: `GET /processos`
+- Buscar por ID: `GET /processos/:id`
+- Criar: `POST /processos`
+  ```json
+  {
+    "numero_documento": "2025-001",
+    "tipo_documento": "Ofício",
+    "ano": 2025,
+    "data_abertura": "2025-07-22",
+    "apenso_processo": "2024-123",
+    "criado_por": "João Silva",
+    "codigo_assunto": "A001",
+    "assunto": "Solicitação de documento",
+    "doc_necessario": "RG, CPF",
+    "origem": "Setor de Atendimento",
+    "valor_rs": 150.75,
+    "codigo_requerente": "REQ123",
+    "sumula_documento": "Resumo do documento",
+    "unidade_id": 1,
+    "requerente_id": 1,
+    "secretaria_id": 1,
+    "setor_destino_id": 2,
+    "setor_requerente_id": 2,
+    "local_abertura": "Guichê 1"
+  }
+  ```
+- Atualizar: `PUT /processos/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /processos/:id`
+- Listar trâmites: `GET /processos/:id/tramites`
+- Listar pagamentos: `GET /processos/:id/pagamentos`
+- Listar documentos: `GET /processos/:id/documentos`
+
+## REQUERENTE
+- Listar todos: `GET /requerentes`
+- Buscar por ID: `GET /requerentes/:id`
+- Criar: `POST /requerentes`
+  ```json
+  {
+    "nome": "Maria Oliveira",
+    "cpf": "123.456.789-00",
+    "cnpj": "12.345.678/0001-99",
+    "email": "maria@exemplo.com",
+    "telefone": "11999999999",
+    "endereco": "Rua das Flores, 100",
+    "tipo": "PESSOA_FISICA"
+  }
+  ```
+- Atualizar: `PUT /requerentes/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /requerentes/:id`
+- Listar processos do requerente: `GET /requerentes/:id/processos`
+
+## SECRETARIA
+- Listar todas: `GET /secretarias`
+- Buscar por ID: `GET /secretarias/:id`
+- Criar: `POST /secretarias`
+  ```json
+  {
+    "nome": "Secretaria de Administração",
+    "codigo": "ADM01",
+    "descricao": "Responsável pela administração geral"
+  }
+  ```
+- Atualizar: `PUT /secretarias/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /secretarias/:id`
+- Listar setores da secretaria: `GET /secretarias/:id/setores`
+
+## SETOR
+- Listar todos: `GET /setores`
+- Buscar por ID: `GET /setores/:id`
+- Criar: `POST /setores`
+  ```json
+  {
+    "nome": "Setor de Protocolo",
+    "codigo": "PROTO01",
+    "secretaria_id": 1
+  }
+  ```
+- Atualizar: `PUT /setores/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /setores/:id`
+- Listar responsáveis do setor: `GET /setores/:id/responsaveis`
+
+## DOCUMENTO_CONTROLE
+- Listar todos: `GET /documentos-controle`
+- Buscar por ID: `GET /documentos-controle/:id`
+- Criar: `POST /documentos-controle`
+  ```json
+  {
+    "processo_id": 1,
+    "enviado_por": "Maria",
+    "data_envio": "2025-07-22",
+    "docs_guia": "Guia 123",
+    "numero_guia": "12345",
+    "apensos": "Apenso A"
+  }
+  ```
+- Atualizar: `PUT /documentos-controle/:id`
+  (mesmo corpo do POST)
+- Remover: `DELETE /documentos-controle/:id`
+
+## USUARIOS (AUTENTICAÇÃO)
+- Cadastro: `POST /auth/cadastro`
+  ```json
+  {
+    "nome": "João Silva",
+    "email": "joao@exemplo.com",
+    "senha": "minhasenha123",
+    "papel": "admin"
+  }
+  ```
+ Login: `POST /auth/login`
+ ```json
+ {
+   "email": "joao@exemplo.com",
+   "senha": "minhasenha123"
+ }
+ ```

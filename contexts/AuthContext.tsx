@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
+import { setCookie, destroyCookie, parseCookies } from "nookies";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
@@ -19,19 +20,19 @@ type User = {
 	nome: string;
 	email: string;
 	papel: string;
-	
-	
-	
+	secretaria_id: number | null;
+	secretaria_nome?: string;
+	unidade_id: number | null;
 };
 
 type AuthContextType = {
-	user: User | null;
-	token: string | null;
-	login: (email: string, password: string) => Promise<void>;
-	logout: () => void;
-	isAuthenticated: boolean;
-	isLoading: boolean;
-	error: string | null;
+user: User | null;
+token: string | null;
+login: (email: string, password: string) => Promise<void>;
+logout: () => void;
+isAuthenticated: boolean;
+isLoading: boolean;
+error: string | null;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -39,107 +40,98 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-	const [user, setUser] = useState<User | null>(null);
-	const [token, setToken] = useState<string | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-	const router = useRouter();
+const [user, setUser] = useState<User | null>(null);
+const [token, setToken] = useState<string | null>(null);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+const router = useRouter();
 
 	useEffect(() => {
-		const initAuth = () => {
-			try {
-				const storedToken = localStorage.getItem("token");
-				const storedUser = localStorage.getItem("user");
+		const { token: storedToken, user: storedUser } = parseCookies();
 
-				if (storedToken && storedUser) {
-					const parsedUser = JSON.parse(storedUser);
-					setToken(storedToken);
-					setUser(parsedUser);
-					api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
-				} else {
-					setToken(null);
-					setUser(null);
-					delete api.defaults.headers.common.Authorization;
-				}
-			} catch (error) {
-				console.error("Erro ao inicializar autenticação:", error);
-				setToken(null);
-				setUser(null);
-				localStorage.removeItem("token");
-				localStorage.removeItem("user");
-			} finally {
-				setIsLoading(false);
-			}
-		};
+		if (storedToken && storedUser) {
+			const parsedUser = JSON.parse(storedUser);
+			setToken(storedToken);
+			setUser(parsedUser);
+			api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
+		} else {
+			setToken(null);
+			setUser(null);
+		}
 
-		initAuth();
+		setIsLoading(false);
 	}, []);
 
 	const login = async (email: string, password: string) => {
-		try {
-			setError(null); // Limpar erro anterior
-			const response = await api.post("/auth/login", {
-				email,
-				senha: password,
-			});
+try {
+  setError(null);
+  const response = await api.post("/auth/login", {
+	email,
+	senha: password,
+  });
 
-			const { token, usuario } = response.data;
+  const { token, usuario } = response.data;
 
-			
+  if (usuario.secretaria_id) {
+	try {
+	  const secretariaRes = await fetch(`${API_URL}/secre/${usuario.secretaria_id}`);
+	  if (secretariaRes.ok) {
+		const secretariaData = await secretariaRes.json();
+		usuario.secretaria_nome = secretariaData.nome;
+	  }
+	} catch (error) {
+	  console.error("Erro ao buscar secretaria:", error);
+	}
+  }
 
-		
+  if (usuario.unidade_id === undefined || usuario.unidade_id === null) {
+	usuario.unidade_id = null;
+  }
 
-			setToken(token);
-			setUser(usuario);
-			localStorage.setItem("token", token);
-			localStorage.setItem("user", JSON.stringify(usuario));
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  setToken(token);
+  setUser(usuario);
+  setCookie(undefined, "token", token, {
+	maxAge: 60 * 60 * 24 * 30, // 30 days
+	path: "/",
+  });
+  setCookie(undefined, "user", JSON.stringify(usuario), {
+	maxAge: 60 * 60 * 24 * 30, // 30 days
+	path: "/",
+  });
+  api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-			// 👉 Redireciona para a home
-			router.push("/");
-		} catch (error: any) {
-			// Exibe todos os detalhes do erro para diagnóstico
-			console.error("Erro no login:", error);
-			if (error.response) {
-				// Erro HTTP
-				setError(`HTTP ${error.response.status}: ${JSON.stringify(error.response.data)}`);
-			} else if (error.request) {
-				// Sem resposta do servidor
-				setError("Sem resposta do servidor. Verifique se o backend está rodando e se o CORS está habilitado.");
-			} else {
-				// Outro erro
-				setError(`Erro: ${error.message}`);
-			}
-		}
+  // 👉 Redireciona para a home
+  router.push("/");
+} catch (error) {
+  setError("Usuário ou senha inválidos");
+  console.error("Erro no login:", error);
+  throw error;
+}
 	};
 
 	const logout = () => {
 		setToken(null);
 		setUser(null);
-		setError(null);
-		localStorage.removeItem("token");
-		localStorage.removeItem("user");
-		delete api.defaults.headers.common.Authorization;
-		// Remove cookies de autenticação
-		document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-		document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-		router.push("/login");
+		destroyCookie(undefined, "token");
+		destroyCookie(undefined, "user");
+		api.defaults.headers.common.Authorization = undefined;
+		window.location.href = "/login";
 	};
 
 	return (
-		<AuthContext.Provider
-			value={{
-				user,
-				token,
-				login,
-				logout,
-				isAuthenticated: !!user,
-				isLoading,
-				error,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
+<AuthContext.Provider
+  value={{
+	user,
+	token,
+	login,
+	logout,
+	isAuthenticated: !!user,
+	isLoading,
+	error,
+  }}
+>
+  {children}
+</AuthContext.Provider>
 	);
 }
 
