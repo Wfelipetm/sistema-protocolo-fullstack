@@ -54,11 +54,11 @@ export default function Layout({ children }: LayoutProps) {
     { icon: FileCheck, label: "Controle Documento", href: "/controle-documento" },
     { icon: Users, label: "Cadastro Principal", href: "/cadastro-principal" },
     { icon: FileText, label: "Docs. Recebidos", href: "/docs-recebidos" },
+    { icon: Send, label: "Docs. Enviados", href: "/docs-enviados" },
     { icon: CreditCard, label: "Pagamentos", href: "/pagamentos" },
     { icon: Search, label: "Localizar", href: "/localizar" },
-    { icon: FileX, label: "Apensos", href: "/apensos" },
-    { icon: Send, label: "Docs. Enviados", href: "/docs-enviados" },
-    { icon: History, label: "Histórico", href: "/historico" },
+    { icon: FileX, label: "Apensos", href: "/apensos" },    
+    // { icon: History, label: "Histórico", href: "/historico" },
   ]
 
   return (
