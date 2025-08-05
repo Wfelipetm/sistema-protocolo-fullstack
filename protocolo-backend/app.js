@@ -7,7 +7,7 @@ const db = require('./src/config/db');
 
 // Inicializa app
 const app = express();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4002;
 
 // Configuração do Passport com LDAP
 passport.use(
@@ -30,7 +30,12 @@ passport.use(
 
 // Middlewares globais
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 // Rotas básicas
 app.get('/', (req, res) => {
@@ -81,5 +86,5 @@ process.on('unhandledRejection', (reason, promise) => {
 
 // Inicialização do servidor
 app.listen(PORT, () => {
-    console.log(`Servidor protocol rodando em http://sistemaprotocolo.itaguai.rj.gov.br:${PORT}`);
+    console.log(`Servidor protocol rodando em http://localhost:${PORT}`);
 });
